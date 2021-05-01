@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "img": "img/vinyl.jpeg",
+        "imgalt": "vinyl",
+        "desc": "그룹은 해체되었지만.. 길이 남을 명반",
+        "price": 65000.0,
+        "productname": "[Vinyl] Daft Funk"
+    },
+    {
+        "id": 2,
+        "img": "img/lunchkey.jpeg",
+        "imgalt": "keyboard",
+        "desc": "런치패드로 유명한 Novation의 건반",
+        "price": 328000.0,
+        "productname": "[Keyboard] Novation Launchkey 49"
+    },
+    {
+        "id": 3,
+        "img": "img/elecdrum.jpeg",
+        "imgalt": "drum",
+        "desc": "Roland나 Yamaha 급은 아니지만 가성비 괜찮은 전자드럼. 레코딩하기 좋음",
+        "price": 1000000.0,
+        "productname": "[Drum] Z-Drum V9-R"
+    },
+    {
+        "id": 4,
+        "img": "img/guitar1.jpeg",
+        "imgalt": "guitar",
+        "desc": "대륙의 실수로 만들어진 이름모를 전자기타. 블랙프라이데이에 창고방출로 얻었다.",
+        "price": 65000.0,
+        "productname": "[Guitar] 장작"
+    },
+    {
+        "id": 5,
+        "img": "img/guitar2.jpeg",
+        "imgalt": "guitar",
+        "desc": "Fender의 저가형 모델인 Squier의 탑 티어 스트랫. 이정도면 괜찮다.",
+        "price": 600000.0,
+        "productname": "[Guitar] Squier classic vibe 50's stratocaster"
+    },
+    {
+        "id": 6,
+        "img": "img/kart.jpeg",
+        "imgalt": "etc",
+        "desc": "롯데리아에서 카트라이더 프로모션을 할 당시 주워와서 LED 개조를 하였다..",
+        "price": 10000.0,
+        "productname": "[Etc] 로봇배찌"
+    }
+]
