@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Customer struct {
 	gorm.Model
@@ -27,7 +30,7 @@ type Product struct {
 	Description string
 }
 
-func (Customer) TableName() string {
+func (Product) TableName() string {
 	return "products"
 }
 
@@ -41,6 +44,6 @@ type Order struct {
 	PurchaseDate time.Time `gorm:"column:purchase_date" json:"purchase_date"`
 }
 
-func (Customer) TableName() string {
+func (Order) TableName() string {
 	return "orders"
 }
