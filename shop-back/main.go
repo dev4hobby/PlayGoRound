@@ -1,9 +1,8 @@
 package main
 
 import (
+	"./rest"
 	"log"
-
-	"github.com/dev4hobby/PlayGoRound/shop-back/rest"
 )
 
 func main() {

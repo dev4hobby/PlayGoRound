@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/dev4hobby/PlayGoRound/shop-back/dblayer"
-	"github.com/dev4hobby/PlayGoRound/shop-back/models"
+	"../dblayer"
+	"../models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stripe/stripe-go"

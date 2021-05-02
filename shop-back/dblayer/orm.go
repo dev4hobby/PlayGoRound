@@ -3,7 +3,7 @@ package dblayer
 import (
 	"errors"
 
-	"github.com/dev4hobby/PlayGoRound/shop-back/models"
+	"../models"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
