@@ -5,10 +5,18 @@ import (
 )
 
 func RunAPI(address string) error {
+	h, err := NewHandler()
+	if err != nil {
+		return err
+	}
+	return RunAPIWithHandler(address, h)
+}
+
+func RunAPIWithHandler(address string, h HandlerInterface) error {
 	// gin 엔진 가져옴
 	app := gin.Default()
-	// 핸들러 초기화
-	handler, _ := NewHandler()
+	app.Use(gin.Logger(), gin.Recovery())
+
 	// root page
 	app.GET("/", handler.GetMainPage)
 	app.GET("/products", handler.GetProducts)
@@ -24,5 +32,8 @@ func RunAPI(address string) error {
 		userGroup.POST("/signin", handler.SignIn)
 		userGroup.POST("", handler.AddUser)
 	}
+
+	app.Static("/img", "../public/img")
 	return app.Run(address)
+	// return app.RunTLS(address, "cert.pem", "key.pem")
 }
