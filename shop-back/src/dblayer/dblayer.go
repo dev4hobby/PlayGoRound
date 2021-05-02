@@ -60,3 +60,5 @@ type DBLayer interface {
 	SignOutUserById(int) error
 	GetCustomerOrdersByID(int) ([]models.Order, error)
 }
+
+var ErrINVALIDPASSWORD = errors.New("Invalid password")

@@ -3,6 +3,7 @@ package dblayer
 import (
 	_ "github.com/go-sql-driver/mysql"
 	"gorm.io/gorm"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type DBORM struct {
@@ -43,19 +44,43 @@ func (db *DBORM) AddUser(customer models.Customer) (models.Customer, err error) 
 	return customer, db.Create(&customer).Error
 }
 
+func hashPassword(s *string) error {
+	if s == nil {
+		return errors.New("Reference provided for hashing password is null")
+	}
+	sByte := []byte(*s)
+	hashedBytes, err := bcrypt.GenerateFromPassword(sBytes, bcrypt.DefaultCost)
+	if err != nil{
+		return err
+	}
+	*s = string(hashedBytes[:])
+	return nil
+}
+
 func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err error) {
-	// 패스워드 체킹
-	if !checkPassword(pass) {
-		return customer, errors.New("Invalid password")
+	// 사용자 행을 나타내는 *gorm.DB 타입 할당
+	result := db.Table("Customers").where(&models.Customer{Email: email})
+	err = result.First(&customer).Error
+	if err != nil {
+		return customer, err
 	}
 	
-	result := db.Table("Customers").Where(&models.Customer{Email: email})
+	// 패스워드 체킹
+	if !checkPassword(customer.Pass, pass) {
+		return customer, ErrINVALIDPASSWORD
+	}
+
+	// loggedin 필드 업데이트
 	err = result.Update("loggedin", 1).Error
 	if err != nil {
 		return customer, err
 	}
+	// customer row 내어줌
 	return customer, result.Find(&customer).Error
-	
+}
+
+func checkPassword(existingHash, incomingPass string) bool {
+	return bcrypt.CompareHashAndPassword([]byte(existingHash), []byte(incomingPass)) == nil
 }
 
 func (db *DBORM) SignOutUserById(int) error {
