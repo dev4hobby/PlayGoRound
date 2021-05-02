@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"playgoround/shop-back/dblayer"
-	"playgoround/shop-back/models"
 	"strconv"
+
+	"github.com/dev4hobby/PlayGoRound/shop-back/dblayer"
+	"github.com/dev4hobby/PlayGoRound/shop-back/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stripe/stripe-go"
