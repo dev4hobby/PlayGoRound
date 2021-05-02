@@ -1,9 +1,12 @@
 package dblayer
 
 import (
+	"errors"
+
+	"../models"
 	_ "github.com/go-sql-driver/mysql"
-	"gorm.io/gorm"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 type DBORM struct {
@@ -17,7 +20,7 @@ func NewORM(dbname, con string) (*DBORM, error) {
 	}, err
 }
 
-func (db *DBORM) GetAllProducts() ([]models.Product, err error) {
+func (db *DBORM) GetAllProducts() (products []models.Product, err error) {
 	return products, db.Find(&products).Error
 }
 
@@ -33,11 +36,11 @@ func (db *DBORM) GetCustomerByID(id int) (customer models.Customer, err error) {
 	return customer, db.First(&customer, id).Error
 }
 
-func (db *DBORM) GetProduct(id int) (product models.Product, error) {
+func (db *DBORM) GetProduct(id int) (product models.Product, err error) {
 	return product, db.First(&product, id).Error
 }
 
-func (db *DBORM) AddUser(customer models.Customer) (models.Customer, err error) {
+func (db *DBORM) AddUser(customer models.Customer) (models.Customer, error) {
 	// 사용자 등록, 비밀번호는 hashing
 	hashPassword(&customer.Pass)
 	customer.LoggedIn = true
@@ -50,7 +53,7 @@ func hashPassword(s *string) error {
 	}
 	sByte := []byte(*s)
 	hashedBytes, err := bcrypt.GenerateFromPassword(sBytes, bcrypt.DefaultCost)
-	if err != nil{
+	if err != nil {
 		return err
 	}
 	*s = string(hashedBytes[:])
@@ -64,7 +67,7 @@ func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err e
 	if err != nil {
 		return customer, err
 	}
-	
+
 	// 패스워드 체킹
 	if !checkPassword(customer.Pass, pass) {
 		return customer, ErrINVALIDPASSWORD
@@ -95,10 +98,7 @@ func (db *DBORM) SignOutUserById(int) error {
 
 func (db *DBORM) GetCustomerOrdersByID(int) ([]models.Order, error) {
 	// 요청한 사용자의 주문내역 조회
-	return orders, db.Table("orders").Select("*")
-	.Joins("join customers on customers.id = customer_id")
-	.Joins("join products on products.id = product_id")
-	.Where("customer_id=?", id).Scan(&orders).Error
+	return orders, db.Table("orders").Select("*").Joins("join customers on customers.id = customer_id").Joins("join products on products.id = product_id").Where("customer_id=?", id).Scan(&orders).Error
 }
 
 func (db *DBORM) AddOrder(order models.Order) error {
