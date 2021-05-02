@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 

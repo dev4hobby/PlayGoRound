@@ -100,3 +100,23 @@ func (db *DBORM) GetCustomerOrdersByID(int) ([]models.Order, error) {
 	.Joins("join products on products.id = product_id")
 	.Where("customer_id=?", id).Scan(&orders).Error
 }
+
+func (db *DBORM) AddOrder(order models.Order) error {
+
+	return db.Create(&order).Error
+}
+
+func (db *DBORM) GetCreditCardCID(id int) (string, error) {
+
+	cusomterWithCCID := struct {
+		models.Customer
+		CCID string `gorm:"column:cc_customerid"`
+	}{}
+
+	return cusomterWithCCID.CCID, db.First(&cusomterWithCCID, id).Error
+}
+
+func (db *DBORM) SaveCreditCardForCustomer(id int, ccid string) error {
+	result := db.Table("customers").Where("id=?", id)
+	return result.Update("cc_customerid", ccid).Error
+}
