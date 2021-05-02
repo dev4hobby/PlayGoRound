@@ -1,16 +1,17 @@
 package rest
 
 import (
-	"../dblayer"
-	"../models"
 	"fmt"
+	"log"
+	"net/http"
+	"playgoround/shop-back/dblayer"
+	"playgoround/shop-back/models"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/stripe/stripe-go"
 	"github.com/stripe/stripe-go/charge"
 	"github.com/stripe/stripe-go/customer"
-	"log"
-	"net/http"
-	"strconv"
 )
 
 type HandlerInterface interface {

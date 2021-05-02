@@ -1,8 +1,11 @@
 package dblayer
 
 import (
-	"gorm.io/gorm"
+	"errors"
 	"time"
+
+	"github.com/dev4hobby/PlayGoRound/shop-back/models"
+	"github.com/jinzhu/gorm"
 )
 
 type Product struct {

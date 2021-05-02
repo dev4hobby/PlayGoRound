@@ -3,10 +3,11 @@ package dblayer
 import (
 	"errors"
 
-	"../models"
+	"github.com/dev4hobby/PlayGoRound/shop-back/models"
+
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/gorm"
 )
 
 type DBORM struct {
