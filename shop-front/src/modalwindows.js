@@ -3,7 +3,7 @@ import CreditCardInformation from './CreditCards';
 import cookie from 'js-cookie';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
-function submitRequest(path, requestBody, handleSignedIn,handleError) {
+function submitRequest(path, requestBody, handleSignedIn, handleError) {
   fetch(path, {
     method: 'POST',
     headers: {
@@ -14,6 +14,7 @@ function submitRequest(path, requestBody, handleSignedIn,handleError) {
   }).then(response => response.json())
     .then(json => {
       // console.log("Response received...")
+      console.log(json)
       if (json.error === undefined || !json.error) {
         cookie.set("user", json);
         handleSignedIn(json);
