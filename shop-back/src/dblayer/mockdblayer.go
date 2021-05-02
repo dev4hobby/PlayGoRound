@@ -1,11 +1,10 @@
 package dblayer
 
 import (
+	"../models"
 	"encoding/json"
 	"fmt"
 	"strings"
-
-	"github.com/PacktPublishing/Hands-On-Full-Stack-Development-with-Go/Chapter08/backend/src/models"
 )
 
 type MockDBLayer struct {
