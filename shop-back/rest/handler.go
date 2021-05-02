@@ -29,12 +29,18 @@ type Handler struct {
 	db dblayer.DBLayer
 }
 
-func NewHandler() (HandlerInterface, error) {
-	return NewHandlerWithParams("mysql", "root:root@/gomusic")
-}
+// func NewHandlerWithParams(dbtype, conn string) (HandlerInterface, error) {
+// 	db, err := dblayer.NewORM(dbtype, conn)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return &Handler{
+// 		db: db,
+// 	}, nil
+// }
 
-func NewHandlerWithParams(dbtype, conn string) (HandlerInterface, error) {
-	db, err := dblayer.NewORM(dbtype, conn)
+func NewHandler() (HandlerInterface, error) {
+	db, err := dblayer.NewORM("mysql", "root:root@/testdb")
 	if err != nil {
 		return nil, err
 	}
@@ -43,12 +49,8 @@ func NewHandlerWithParams(dbtype, conn string) (HandlerInterface, error) {
 	}, nil
 }
 
-func NewHandlerWithDB(db dblayer.DBLayer) HandlerInterface {
-	return &Handler{db: db}
-}
-
 func (h *Handler) GetMainPage(c *gin.Context) {
-	log.Println("Main page")
+	log.Println("Main page....")
 	c.String(http.StatusOK, "Main page for secure API!!")
 }
 
@@ -181,7 +183,7 @@ func (h *Handler) Charge(c *gin.Context) {
 
 	stripe.Key = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 	chargeP := &stripe.ChargeParams{
-		Amount:      stripe.Int64(Int64(request.Price)),
+		Amount:      stripe.Int64(int64(request.Price)),
 		Currency:    stripe.String("krw"),
 		Description: stripe.String("d3fau1t charge"),
 	}
