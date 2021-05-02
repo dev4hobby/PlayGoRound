@@ -1,5 +1,6 @@
 import React from 'react';
 import { injectStripe, StripeProvider, Elements, CardElement } from 'react-stripe-elements'
+import Cookies from 'js-cookie'
 
 const INITIALSTATE = "INITIAL";
 const SUCCESSSTATE = "COMPLETE";
@@ -9,13 +10,15 @@ class CreditCardForm extends React.Component{
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.state = {
-      value: '',
-      status: INITIALSTATE
+      status: INITIALSTATE,
+      useExisting: false
     }
   }
   renderCreditCardInformation() {
+    const user = Cookies.getJSON('user')
+
     const style = {
       base: {
         'fontSize': '20px',
@@ -26,35 +29,37 @@ class CreditCardForm extends React.Component{
     const userSavedCard = <div>
       <div className="form-row text-center">
         <button
-          type="button"
-          className="btn btn-outline-success text-center mx-auto">
+          type="submit"
+          className="btn btn-outline-success text-center mx-auto"
+          onClick={
+            () => this.setState(
+              { useExisting: true }
+            )
+          }>
           Use saved card?
-          </button>
+        </button>
       </div>
       <hr />
     </div>;
 
-    const rememberCardCheck = <div className="form-row form-check textcenter">
-      <input
-        className="form-check-input"
-        type="checkbox"
-        value=""
-        id="remember-card-check" />
-      <label
-        className="form-check-label"
-        htmlFor="remember-card-check">
-        Remember Card?
-      </label>
-    </div>;
+    let rememberCardCheck = null;
+      if (user.loggedin === true) {
+        rememberCardCheck = <div className="form-row form-check text-center">
+          <input className="form-check-input" type="checkbox" value="" id="remember-card-check" name='remember' onChange={this.handleChange} />
+          <label className="form-check-label" htmlFor="remember-card-check">
+            Remember Card?
+          </label>
+        </div>;
+      }
     return (
-      <div>
-        {userSavedCard}
-        <h5 className="mb-4">Payment Info</h5>
+      <div>  
         <form onSubmit={this.handleSubmit}>
+        {(user.loggedin)?userSavedCard:null}
+        <h5 className="mb-4">Payment Info</h5>
           <div className="form-row">
             <div className="col-lg-12 form-group">
-              <label htmlFor="cc-name">Name On Card: </label>
-              <input id="cc-name" name='cc-name' className="form-control" placeholder='Name on Card' onChange={this.handleInputChange} type='text' />
+              <label htmlFor="cc-name">Name On Card:</label>
+              <input id="cc-name" name='name' className="form-control" placeholder='Name on Card' onChange={this.handleChange} type='text' />
             </div>
           </div>
           <div className="form-row">
@@ -73,15 +78,16 @@ class CreditCardForm extends React.Component{
   renderSuccess() {
     return (
       <div>
-        <h5 className="mb-4 text-success">Credit card payment processed.....</h5>
-        <button type="submit" className="btn btn-success btn-large" onClick={() => { this.props.toggle() }}>Ok</button>
+        <h5 className="mb-4 text-success">Request Successful...</h5>
+        <button type="submit" className="btn btn-success btn-large" onClick={() => { this.props.toggle() }}>OK</button>
       </div>
     );
   }
+
   renderFailure() {
     return (
       <div>
-        <h5 className="mb-4 text-danger"> Credit card information invalid, try again or exit</h5>
+        <h5 className="mb-4 text-danger"> Error occured while processing credit card... </h5>
         {this.renderCreditCardInformation()}
       </div>
     );
@@ -89,39 +95,47 @@ class CreditCardForm extends React.Component{
 
   async handleSubmit(event) {
     event.preventDefault()
-    console.log("Handle submit called, with name: " + this.state.value);
-
-    // 입력된 신용카드에 대한 토큰 발급
-    const { token } = await this.props.stripe.createToken({ name: this.state.value });
-    if (token === null) {
-      console.log("invalid token")
-      this.setState({ status: FAILEDSTATE })
-      return
+    let id = ""
+    
+    if (!this.state.useExisting) {
+      // 입력된 신용카드에 대한 토큰 발급
+      const { token } = await this.props.stripe.createToken({ name: this.state.name });
+      if (token === null) {
+        // console.log("invalid token")
+        this.setState({ status: FAILEDSTATE })
+        return
+      }
+      id = token.id
     }
-
     // 서버로 토큰을 전달함
-    const response = await fetch("/charge", {
+    const response = await fetch("/users/charge", {
       method: "POST",
-      headers: { "Content-Type": "text/plain" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        token: token.id,
-        operation: this.props.operation
+        token: id,
+        customer_id: this.props.user,
+        product_id: this.props.productid,
+        sell_price: this.props.price,
+        rememberCard: this.state.remember !== undefined,
+        useExisting: this.state.useExisting
       })
     })
-    console.log(response.ok)
-
     // 결제 성공 및 실패에 대한 화면 출력
     if (response.ok) {
       console.log("Purchase Complete!")
       this.setState({ status: SUCCESSSTATE })
+    } else {
+      this.setState({status: FAILEDSTATE})
     }
-    // document.getElementsByClassName('#model').model('hide');
   }
 
-  handleInputChange(event) {
+  handleChange(event) {
+    event.preventDefault();
+    const name = event.target.name;
+    const value = event.target.value;
     this.setState({
-      value: event.target.value
-    })
+      [name]: value
+    });
   }
 
   render() {
@@ -155,7 +169,7 @@ export default function CreditCardInformation(props) {
       {props.separator ? <hr /> : null}
       <StripeProvider apiKey="pk_test_LwL4RUtinpP3PXzYirX2jNfR">
         <Elements>
-          <CCFormWithStripe operation={props.operation} />
+          <CCFormWithStripe operation={props.operation} productid={props.productid} price={props.price} toggle={props.toggle}/>
         </Elements>
       </StripeProvider>
     </div>
