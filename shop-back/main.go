@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"./rest"
+	"github.com/dev4hobby/PlayGoRound/shop-back/rest"
 )
 
 func main() {

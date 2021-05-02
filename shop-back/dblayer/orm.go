@@ -3,7 +3,7 @@ package dblayer
 import (
 	"errors"
 
-	"../models"
+	"github.com/dev4hobby/PlayGoRound/shop-back/models"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
@@ -52,7 +52,7 @@ func hashPassword(s *string) error {
 		return errors.New("Reference provided for hashing password is null")
 	}
 	sByte := []byte(*s)
-	hashedBytes, err := bcrypt.GenerateFromPassword(sBytes, bcrypt.DefaultCost)
+	hashedBytes, err := bcrypt.GenerateFromPassword(sByte, bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
@@ -62,7 +62,7 @@ func hashPassword(s *string) error {
 
 func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err error) {
 	// 사용자 행을 나타내는 *gorm.DB 타입 할당
-	result := db.Table("Customers").where(&models.Customer{Email: email})
+	result := db.Table("Customers").Where(&models.Customer{Email: email})
 	err = result.First(&customer).Error
 	if err != nil {
 		return customer, err
@@ -86,7 +86,7 @@ func checkPassword(existingHash, incomingPass string) bool {
 	return bcrypt.CompareHashAndPassword([]byte(existingHash), []byte(incomingPass)) == nil
 }
 
-func (db *DBORM) SignOutUserById(int) error {
+func (db *DBORM) SignOutUserById(id int) error {
 	// ID에 해당하는 user struct 생성
 	customer := models.Customer{
 		Model: gorm.Model{
@@ -96,7 +96,7 @@ func (db *DBORM) SignOutUserById(int) error {
 	return db.Table("Customers").Where(&customer).Update("loggedin", 0).Error
 }
 
-func (db *DBORM) GetCustomerOrdersByID(int) ([]models.Order, error) {
+func (db *DBORM) GetCustomerOrdersByID(id int) (orders []models.Order, err error) {
 	// 요청한 사용자의 주문내역 조회
 	return orders, db.Table("orders").Select("*").Joins("join customers on customers.id = customer_id").Joins("join products on products.id = product_id").Where("customer_id=?", id).Scan(&orders).Error
 }

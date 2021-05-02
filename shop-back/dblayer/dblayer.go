@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"../models"
+	"github.com/dev4hobby/PlayGoRound/shop-back/models"
 	"github.com/jinzhu/gorm"
 )
 
