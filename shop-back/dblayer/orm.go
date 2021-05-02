@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"../models"
-
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"

@@ -8,11 +8,10 @@ import (
 
 	"../dblayer"
 	"../models"
-
 	"github.com/gin-gonic/gin"
-	"github.com/stripe/stripe-go"
-	"github.com/stripe/stripe-go/charge"
-	"github.com/stripe/stripe-go/customer"
+	"github.com/stripe/stripe-go/v72"
+	"github.com/stripe/stripe-go/v72/charge"
+	"github.com/stripe/stripe-go/v72/customer"
 )
 
 type HandlerInterface interface {
