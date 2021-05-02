@@ -19,11 +19,11 @@ class Card extends React.Component {
             Price: <strong className={priceColor}>{sellPrice}</strong>
             <p className="card-text">{this.props.desc}</p>
             <a
-              href={() => false}
               className="btn btn-success text-white"
               onClick={() => {
                 this.props.showBuyModal(this.props.ID, sellPrice);
               }}
+              href={() => false}
             >
               Buy
             </a>

@@ -96,7 +96,6 @@ class CreditCardForm extends React.Component{
   async handleSubmit(event) {
     event.preventDefault()
     let id = ""
-    
     if (!this.state.useExisting) {
       // 입력된 신용카드에 대한 토큰 발급
       const { token } = await this.props.stripe.createToken({ name: this.state.name });
@@ -105,7 +104,7 @@ class CreditCardForm extends React.Component{
         this.setState({ status: FAILEDSTATE })
         return
       }
-      id = token.id
+      id = token?.id
     }
     // 서버로 토큰을 전달함
     const response = await fetch("/users/charge", {

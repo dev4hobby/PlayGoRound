@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/dev4hobby/PlayGoRound/shop-back/dblayer"
@@ -30,7 +31,7 @@ type Handler struct {
 }
 
 func NewHandler() (HandlerInterface, error) {
-	database, err := dblayer.NewORM("mysql", "root:root@/testdb")
+	database, err := dblayer.NewORM("mysql", os.Getenv("GO_DB_USER")+":"+os.Getenv("GO_DB_PW")+"@tcp("+os.Getenv("GO_DB_URL")+":"+os.Getenv("GO_DB_PORT")+")/d3fau1t_shop?parseTime=true")
 	if err != nil {
 		return nil, err
 	}
