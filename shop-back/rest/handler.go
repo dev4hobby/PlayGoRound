@@ -29,23 +29,13 @@ type Handler struct {
 	db dblayer.DBLayer
 }
 
-// func NewHandlerWithParams(dbtype, conn string) (HandlerInterface, error) {
-// 	db, err := dblayer.NewORM(dbtype, conn)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return &Handler{
-// 		db: db,
-// 	}, nil
-// }
-
 func NewHandler() (HandlerInterface, error) {
-	db, err := dblayer.NewORM("mysql", "root:root@/testdb")
+	database, err := dblayer.NewORM("mysql", "root:root@/testdb")
 	if err != nil {
 		return nil, err
 	}
 	return &Handler{
-		db: db,
+		db: database,
 	}, nil
 }
 

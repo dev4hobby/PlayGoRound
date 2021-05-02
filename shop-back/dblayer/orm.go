@@ -49,7 +49,7 @@ func (db *DBORM) AddUser(customer models.Customer) (models.Customer, error) {
 
 func hashPassword(s *string) error {
 	if s == nil {
-		return errors.New("Reference provided for hashing password is null")
+		return errors.New("reference provided for hashing password is null")
 	}
 	sByte := []byte(*s)
 	hashedBytes, err := bcrypt.GenerateFromPassword(sByte, bcrypt.DefaultCost)
