@@ -8,9 +8,9 @@ import (
 	"reflect"
 	"testing"
 
+	"../dblayer"
+	"../models"
 	"github.com/gin-gonic/gin"
-	"github.com/minaandrawos/PacktPublishing/Hands-On-Full-Stack-Development-with-Go/Chapter08/backend/src/dblayer"
-	"github.com/minaandrawos/PacktPublishing/Hands-On-Full-Stack-Development-with-Go/Chapter08/backend/src/models"
 )
 
 func TestHandler_GetProducts(t *testing.T) {
