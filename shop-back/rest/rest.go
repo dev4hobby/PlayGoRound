@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,8 +18,8 @@ func RunAPIWithHandler(address string, handler HandlerInterface) error {
 	app := gin.Default()
 	app.Use(gin.Logger(), gin.Recovery())
 
-	// root page
-	app.GET("/", handler.GetMainPage)
+	app.Use(static.ServeRoot("/", "./public/build"))
+	app.Static("/static", "./public/build")
 	app.GET("/products", handler.GetProducts)
 	app.GET("/promos", handler.GetPromos)
 
@@ -34,8 +35,6 @@ func RunAPIWithHandler(address string, handler HandlerInterface) error {
 		usersGroup.POST("/signin", handler.SignIn)
 		usersGroup.POST("", handler.AddUser)
 	}
-
-	app.Static("/img", "../public/img")
 	return app.Run(address)
 	// return app.RunTLS(address, "cert.pem", "key.pem")
 }
