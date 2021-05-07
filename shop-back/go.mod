@@ -3,6 +3,7 @@ module github.com/dev4hobby/PlayGoRound/shop-back
 go 1.16
 
 require (
+	github.com/gin-contrib/static v0.0.1
 	github.com/gin-gonic/gin v1.7.1
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/jinzhu/gorm v1.9.16
