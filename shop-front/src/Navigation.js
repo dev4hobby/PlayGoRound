@@ -56,9 +56,9 @@ export default class Navigation extends React.Component {
                 <li className="nav-item active">
                   <NavLink className="nav-item nav-link" to="/">Home</NavLink>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <NavLink className="nav-item nav-link" to="/promos">Promotions</NavLink>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <NavLink className="nav-item nav-link" to="/about">About</NavLink>
                 </li>
