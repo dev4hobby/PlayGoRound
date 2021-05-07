@@ -11,7 +11,7 @@ function Order(props) {
               <img src={props.img} alt={props.imgalt} className="img-thumbnail float-left" />
             </div>
             <div className="col-6">
-              <p className="card-text">{props.desc}</p>
+              <p className="card-text">{props.Description}</p>
               <div className="mt-4">
                 Price: <strong>{props.price}</strong>
               </div>
