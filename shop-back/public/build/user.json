@@ -1,0 +1,33 @@
+{
+    "name": "Mina",
+    "loggedin": false,
+    "orders": [
+        {
+            "id": 1,
+            "img": "img/img-small/dummy.png",
+            "imgalt": "dummy",
+            "desc": "임의의 설명",
+            "price": 10000.0,
+            "productname": "임의의 제품명",
+            "days": 1
+        },
+        {
+            "id": 2,
+            "img": "img/img-small/dummy.png",
+            "imgalt": "dummy",
+            "desc": "임의의 설명",
+            "price": 10000.0,
+            "productname": "임의의 제품명",
+            "days": 7
+        },
+        {
+            "id": 3,
+            "img": "img/img-small/dummy.png",
+            "imgalt": "dummy",
+            "desc": "임의의 설명",
+            "price": 10000.0,
+            "productname": "임의의 제품명",
+            "days": 14
+        }
+    ]
+}

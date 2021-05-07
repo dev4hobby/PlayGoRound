@@ -1,0 +1,18 @@
+[
+    {
+        "id": 7,
+        "img": "img/50jeon.jpeg",
+        "imgalt": "50전",
+        "desc": "태어나기도 전에 사용되었다는 화폐이다. 생각보다 보존이 잘 되어있다.",
+        "price": 50000.0,
+        "productname": "[Etc] 50전"
+    },
+    {
+        "id": 8,
+        "img": "img/friends.jpeg",
+        "imgalt": "친구들",
+        "desc": "방 구석에 있는 친구들이다. 회식마다 인형뽑기가 잘되던데..",
+        "price": 100000000.0,
+        "productname": "[Etc] 친구들"
+    }
+]
