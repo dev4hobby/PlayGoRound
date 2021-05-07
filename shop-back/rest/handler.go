@@ -31,7 +31,8 @@ type Handler struct {
 }
 
 func NewHandler() (HandlerInterface, error) {
-	database, err := dblayer.NewORM("mysql", os.Getenv("GO_DB_USER")+":"+os.Getenv("GO_DB_PW")+"@tcp("+os.Getenv("GO_DB_URL")+":"+os.Getenv("GO_DB_PORT")+")/d3fau1t_shop?parseTime=true")
+	endpoint := os.Getenv("GO_DB_USER") + ":" + os.Getenv("GO_DB_PW")
+	database, err := dblayer.NewORM("mysql", endpoint+"@tcp("+os.Getenv("GO_DB_URL")+":"+os.Getenv("GO_DB_PORT")+")/d3fau1t_shop?parseTime=true")
 	if err != nil {
 		return nil, err
 	}
