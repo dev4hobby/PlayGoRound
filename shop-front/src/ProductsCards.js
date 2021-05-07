@@ -15,9 +15,9 @@ class Card extends React.Component {
             alt={this.props.imgalt}
           />
           <div className="card-body">
-            <h4 className="cardtitle">{this.props.productname}</h4>
+            <h4 className="cardtitle">{this.props.name}</h4>
             Price: <strong className={priceColor}>{sellPrice}</strong>
-            <p className="card-text">{this.props.desc}</p>
+            <p className="card-text">{this.props.Description}</p>
             <a
               className="btn btn-success text-white"
               onClick={() => {
