@@ -27,7 +27,7 @@ type Product struct {
 	ImageAlt    string  `gorm:"column:imgalt" json:"imgalt"`
 	Price       float64 `json:"price"`
 	Promotion   float64 `json:"promotion"`
-	ProductName string  `gorm:"productname" json:"productname"`
+	ProductName string  `gorm:"column:name" json:"name"`
 	Description string
 }
 
