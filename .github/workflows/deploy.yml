@@ -2,17 +2,15 @@ name: Deploy production
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
+  
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout source code
     - uses: actions/checkout@v2
 
     - name: Set up npm
@@ -30,7 +28,7 @@ jobs:
       run: cd shop-back && go build -v ./...
 
     - name: Test
-      run: go test -v ./...
+      run: cd shop-back && go test -v ./...
 
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v11
