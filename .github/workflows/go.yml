@@ -30,6 +30,9 @@ jobs:
     - name: Test
       run: cd shop-back && go test -v ./...
     
+    - name: Generate deployment package
+      run: cd shop-back && zip -r deploy.zip . -x '*.git*' -x node_modules/\*
+
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v11
       with:
