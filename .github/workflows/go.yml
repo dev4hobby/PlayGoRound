@@ -42,7 +42,7 @@ jobs:
         environment_name: D3fau1tshop-env
         region: ap-northeast-2
         version_label: ${{ github.sha }}
-        deployment_package: deploy.zip
+        deployment_package: shop-back/deploy.zip
 
     - name: Success
       run: echo deployed successfully.
