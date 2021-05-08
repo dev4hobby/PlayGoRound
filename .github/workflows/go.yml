@@ -1,13 +1,13 @@
-name: Deploy production
+name: Go
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
-  
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -20,16 +20,16 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.15
-    
-    - name: build Webpage and copy
-    - run: cd shop-front && npm run build && mkdir ../shop-back/public && mv build ../shop-back/public/
+
+    - name: build Webpack and copy
+    - run: cd shop-front && npm run build && mkdir ../shop-back/public && mv build ../shop-back/public/      
 
     - name: Build
       run: cd shop-back && go build -v ./...
 
     - name: Test
       run: cd shop-back && go test -v ./...
-
+    
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v11
       with:
