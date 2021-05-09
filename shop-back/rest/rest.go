@@ -35,6 +35,16 @@ func RunAPIWithHandler(address string, handler HandlerInterface) error {
 		usersGroup.POST("/signin", handler.SignIn)
 		usersGroup.POST("", handler.AddUser)
 	}
+
+	postGroup := app.Group("/post")
+	{
+		// need pagination
+		postGroup.GET("/:id", handler.GetPosts)
+		postGroup.POST("", handler.AddPost)
+		postGroup.PATCH("/:id", handler.PatchPost)
+		postGroup.DELETE("/:id", handler.DeletePost)
+	}
+
 	return app.Run(address)
 	// return app.RunTLS(address, "cert.pem", "key.pem")
 }
