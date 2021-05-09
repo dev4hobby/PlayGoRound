@@ -1,35 +1,46 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid'
 
-class Card extends React.Component {
+class ItemCard extends React.Component {
   render() {
-    const priceColor = this.props.promo ? 'text-danger' : 'text-dark';
+    // const priceColor = this.props.promo ? 'text-danger' : 'text-dark';
     const sellPrice = this.props.promo
       ? this.props.promotion
       : this.props.price;
     return (
-      <div className="col-md-6 col-lg-4 d-flex align-items-stretch">
-        <div className="card mb-3">
-          <img
-            className="card-img-top"
-            src={this.props.img}
-            alt={this.props.imgalt}
+      <Card>
+        <CardActionArea>
+          <CardMedia
+            style={{height:140}}
+            image={this.props.img}
+            title={this.props.imgalt}
           />
-          <div className="card-body">
-            <h4 className="cardtitle">{this.props.name}</h4>
-            Price: <strong className={priceColor}>{sellPrice}</strong>
-            <p className="card-text">{this.props.Description}</p>
-            <a
-              className="btn btn-success text-white"
-              onClick={() => {
-                this.props.showBuyModal(this.props.ID, sellPrice);
-              }}
-              href={() => false}
-            >
-              Buy
-            </a>
-          </div>
-        </div>
-      </div>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {this.props.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {this.props.Description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button variant="contained" color="primary"
+            onClick={() => {
+              this.props.showBuyModal(this.props.ID, sellPrice);
+            }}
+          >
+            Buy
+          </Button>
+        </CardActions>
+      </Card>
     );
   }
 }
@@ -55,16 +66,20 @@ export default class CardContainer extends React.Component {
   render() {
     const { cards } = this.state;
     const items = cards.map(card => (
-      <Card
-        key={card.id}
-        {...card}
-        promo={this.props.promo}
-        showBuyModal={this.props.showBuyModal}
-      />
+      <Grid item xs={12} sm={4}>
+        <ItemCard
+          key={card.id}
+          {...card}
+          promo={this.props.promo}
+          showBuyModal={this.props.showBuyModal}
+        />
+      </Grid>
     ));
     return (
       <div>
-        <div className="mt-5 row">{items}</div>
+        <Grid container>
+          <div className="mt-5 row">{items}</div>
+        </Grid>
       </div>
     );
   }
