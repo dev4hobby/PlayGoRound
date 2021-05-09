@@ -8,6 +8,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 class ItemCard extends React.Component {
   render() {
     // const priceColor = this.props.promo ? 'text-danger' : 'text-dark';
@@ -15,7 +18,7 @@ class ItemCard extends React.Component {
       ? this.props.promotion
       : this.props.price;
     return (
-      <Card>
+      <Card style={{ margin: 5 }} >
         <CardActionArea>
           <CardMedia
             style={{height:140}}
@@ -26,7 +29,7 @@ class ItemCard extends React.Component {
             <Typography gutterBottom variant="h5" component="h2">
               {this.props.name}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography variant="body2" color="textSecondary" component="p" style={{minHeight:60}}>
               {this.props.Description}
             </Typography>
           </CardContent>
@@ -39,6 +42,10 @@ class ItemCard extends React.Component {
           >
             Buy
           </Button>
+          <Typography>
+            {numberWithCommas(this.props.price)} ₩
+          </Typography>
+          
         </CardActions>
       </Card>
     );
@@ -66,7 +73,7 @@ export default class CardContainer extends React.Component {
   render() {
     const { cards } = this.state;
     const items = cards.map(card => (
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} sm={4} direction="row" justify="center" alignItems="stretch" >
         <ItemCard
           key={card.id}
           {...card}
@@ -78,7 +85,7 @@ export default class CardContainer extends React.Component {
     return (
       <div>
         <Grid container>
-          <div className="mt-5 row">{items}</div>
+          {items}
         </Grid>
       </div>
     );
