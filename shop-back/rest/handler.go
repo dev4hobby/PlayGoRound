@@ -24,6 +24,10 @@ type HandlerInterface interface {
 	SignOut(c *gin.Context)
 	GetOrders(c *gin.Context)
 	Charge(c *gin.Context)
+	GetPosts(c *gin.Context)
+	AddPost(c *gin.Context)
+	DeletePost(c *gin.Context)
+	PatchPost(c *gin.Context)
 }
 
 type Handler struct {
@@ -219,4 +223,24 @@ func (h *Handler) Charge(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
+}
+
+func (h *Handler) GetPosts(c *gin.Context) {
+	log.Println("Get Posts....")
+	c.String(http.StatusOK, "GET/ POST")
+}
+
+func (h *Handler) AddPost(c *gin.Context) {
+	log.Println("Add Post....")
+	c.String(http.StatusOK, "POST/ POST")
+}
+
+func (h *Handler) DeletePost(c *gin.Context) {
+	log.Println("Delete Post....")
+	c.String(http.StatusOK, "DELETE/ POST")
+}
+
+func (h *Handler) PatchPost(c *gin.Context) {
+	log.Println("Patch Post....")
+	c.String(http.StatusOK, "PATCH/ POST")
 }
