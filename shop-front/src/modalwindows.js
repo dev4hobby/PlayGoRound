@@ -70,7 +70,7 @@ class SingInForm extends React.Component {
       <div>
         {message}
         <form onSubmit={this.handleSubmit}>
-          <h5 className="mb-4">Basic Info</h5>
+          <h5 className="mb-4">Greeting</h5>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input name="email" type="email" className="form-control" id="email" onChange={this.handleChange} />
