@@ -48,3 +48,24 @@ type Order struct {
 func (Order) TableName() string {
 	return "orders"
 }
+
+type Post struct {
+	gorm.Model
+	Customer
+	CustomerID   int       `gorm:"column:customer_id" json:"customer_id"`
+	CustomerName string    `gorm:"column:customer_name" json:"customer_name"`
+	Title        string    `gorm:"column:title" json:"title"`
+	Contents     string    `gorm:"column:contents" json:"contents"`
+	Image        string    `json:"img"`
+	ImageAlt     string    `gorm:"column:imgalt" json:"imgalt"`
+	Tags         string    `gorm:"column:tags" json:"tags"`
+	LikeCount    int       `gorm:"column:like_count" json:"like_count"`
+	ViewCount    int       `gorm:"column:view_count" json:"view_count"`
+	Show         bool      `gorm:"column:show" json:"show"`
+	CreatedDate  time.Time `gorm:"column:created_date" json:"created_date"`
+	DeletedDate  time.Time `gorm:"column:deleted_date" json:"deleted_date"`
+}
+
+func (Post) TableName() string {
+	return "posts"
+}
