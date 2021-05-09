@@ -46,10 +46,18 @@ export default class OrderContainer extends React.Component {
   }
 
   render() {
-    return (
-      <div className="row mt-5">
-        {this.state.orders.map(order => <Order {...order} />)}
-      </div>
-    );
+    if (this.state.orders) {
+      return (
+        <div className="row mt-5">
+          {this.state.orders.map(order => <Order {...order} />)}
+        </div>
+      );
+    } else {
+      return (
+        <div className="row mt-5">
+          Hello
+        </div>
+      )
+    }
   }
 }

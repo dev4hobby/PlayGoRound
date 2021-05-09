@@ -76,7 +76,7 @@ class App extends React.Component {
             <div className='container pt-4 mt-4'>
               <Route exact path="/" render={() => <CardContainer location='/products' showBuyModal={this.showBuyModalWindow}/>} />
               <Route path="/promos" render={() => <CardContainer location='/promos' promo={true} showBuyModal={this.showBuyModalWindow}/>} />
-              {this.state.user.loggedin ? <Route path="/myorders" render={()=><Orders location={'/user/'+this.state.user.ID+'/orders'}/>}/> : null}
+              {this.state.user.loggedin ? <Route path="/orders" render={()=><Orders location={'/user/'+this.state.user.ID+'/orders'}/>}/> : null}
               <Route path="/about" component={About} />
             </div>
             <SignInModalWindow handleSignedIn={this.handleSignedIn} showModal={this.state.showSignInModal} toggle={this.toggleSignInModalWindow} />
