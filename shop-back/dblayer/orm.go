@@ -62,7 +62,7 @@ func hashPassword(s *string) error {
 
 func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err error) {
 	// 사용자 행을 나타내는 *gorm.DB 타입 할당
-	result := db.Table("Customers").Where(&models.Customer{Email: email})
+	result := db.Table("customers").Where(&models.Customer{Email: email})
 	err = result.First(&customer).Error
 	if err != nil {
 		return customer, err
