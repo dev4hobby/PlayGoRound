@@ -12,7 +12,7 @@ export default class Navigation extends React.Component {
     return (
       <div className="navbar-brand order-1 text-white my-auto">
         <div className="btn-group">
-          <button type="button" className="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Welcome {this.props.user.name}
           </button>
           <div className="dropdown-menu">
@@ -66,7 +66,7 @@ export default class Navigation extends React.Component {
               {
                 this.props.user.loggedin ?
                   this.buildLoggedInMenu()
-                  : <button type="button" className="btn btn-outline-success my-2 my-sm-0" onClick={() => { this.props.showModalWindow(); }}>Sign in</button>
+                  : <button type="button" className="btn btn-outline-primary my-2 my-sm-0" onClick={() => { this.props.showModalWindow(); }}>Sign in</button>
               }
             </div>
           </nav>

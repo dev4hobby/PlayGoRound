@@ -73,7 +73,7 @@ export default class CardContainer extends React.Component {
   render() {
     const { cards } = this.state;
     const items = cards.map(card => (
-      <Grid item xs={12} sm={4} direction="row" justify="center" alignItems="stretch" >
+      <Grid item xs={12} sm={4} >
         <ItemCard
           key={card.id}
           {...card}
@@ -84,7 +84,7 @@ export default class CardContainer extends React.Component {
     ));
     return (
       <div>
-        <Grid container>
+        <Grid container direction="row" justify="center" alignItems="stretch">
           {items}
         </Grid>
       </div>

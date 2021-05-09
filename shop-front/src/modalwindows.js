@@ -81,7 +81,7 @@ class SingInForm extends React.Component {
           </div>
           <div className="form-row text-center">
             <div className="col-12 mt-2">
-              <button type="submit" className="btn btn-success btn-large" >Sign In</button>
+              <button type="submit" className="btn btn-primary btn-large" >Sign In</button>
             </div>
             <div className="col-12 mt-2">
               <button className="btn btn-link text-info" onClick={() => this.props.handleNewUser()}> New User? Register</button>
@@ -223,7 +223,7 @@ export function BuyModalWindow(props) {
   return (
     <Modal id="buy" tabIndex="-1" role="dialog" isOpen={props.showModal} toggle={props.toggle}>
       <div role="document">
-        <ModalHeader toggle={props.toggle} className="bg-success text-white">
+        <ModalHeader toggle={props.toggle} className="bg-primary text-white">
           Buy Item
         </ModalHeader>
         <ModalBody>

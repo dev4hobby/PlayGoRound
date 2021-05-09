@@ -30,7 +30,7 @@ class CreditCardForm extends React.Component{
       <div className="form-row text-center">
         <button
           type="submit"
-          className="btn btn-outline-success text-center mx-auto"
+          className="btn btn-outline-info text-center mx-auto"
           onClick={
             () => this.setState(
               { useExisting: true }
@@ -70,7 +70,7 @@ class CreditCardForm extends React.Component{
           </div>
           {rememberCardCheck}
           <hr className="mb-4" />
-          <button type="submit" className="btn btn-success btn-large" >{this.props.operation}</button>
+          <button type="submit" className="btn btn-primary btn-large" >{this.props.operation}</button>
         </form>
       </div>
     )
