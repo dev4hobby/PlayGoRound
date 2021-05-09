@@ -173,7 +173,7 @@ func (h *Handler) Charge(c *gin.Context) {
 		return
 	}
 
-	stripe.Key = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+	stripe.Key = os.Getenv("GO_STRIPE_KEY")
 	chargeP := &stripe.ChargeParams{
 		Amount:      stripe.Int64(int64(request.Price)),
 		Currency:    stripe.String("krw"),

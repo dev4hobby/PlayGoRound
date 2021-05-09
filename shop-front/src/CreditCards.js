@@ -166,7 +166,7 @@ export default function CreditCardInformation(props) {
   return (
     <div>
       {props.separator ? <hr /> : null}
-      <StripeProvider apiKey="pk_test_LwL4RUtinpP3PXzYirX2jNfR">
+      <StripeProvider apiKey="pk_test_51IpFpGB3zNlf5PzjAulZPSLBLvqydHcYwZy3THXSavyyICCqvBCVgxnqCYNMP3SGbTBfFHV3P1c2fac8sN5aK1GP00a0UsNvkt">
         <Elements>
           <CCFormWithStripe operation={props.operation} productid={props.productid} price={props.price} toggle={props.toggle}/>
         </Elements>
