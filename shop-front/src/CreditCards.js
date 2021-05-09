@@ -43,7 +43,7 @@ class CreditCardForm extends React.Component{
     </div>;
 
     let rememberCardCheck = null;
-      if (user.loggedin === true) {
+      if (user?.loggedin === true) {
         rememberCardCheck = <div className="form-row form-check text-center">
           <input className="form-check-input" type="checkbox" value="" id="remember-card-check" name='remember' onChange={this.handleChange} />
           <label className="form-check-label" htmlFor="remember-card-check">
@@ -54,7 +54,7 @@ class CreditCardForm extends React.Component{
     return (
       <div>  
         <form onSubmit={this.handleSubmit}>
-        {(user.loggedin)?userSavedCard:null}
+        {(user?.loggedin)?userSavedCard:null}
         <h5 className="mb-4">Payment Info</h5>
           <div className="form-row">
             <div className="col-lg-12 form-group">
